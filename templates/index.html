@@ -1,0 +1,50 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse des Fournisseurs</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 10px; text-align: center; }
+        img { width: 100%; max-width: 600px; margin: 20px auto; display: block; }
+    </style>
+</head>
+<body>
+    <h1>Analyse des Fournisseurs</h1>
+
+    <!-- Tableau des statistiques -->
+    <table>
+        <thead>
+            <tr>
+                <th>Vendor ID</th>
+                <th>Nombre de Commandes</th>
+                <th>Quantité Totale</th>
+                <th>Prix Total</th>
+                <th>Chiffre d'Affaires</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in supplier_stats.iterrows() %}
+            <tr>
+                <td>{{ row[1]['VendorID'] }}</td>
+                <td>{{ row[1]['orders_count'] }}</td>
+                <td>{{ row[1]['total_quantity'] }}</td>
+                <td>{{ row[1]['total_price'] }}</td>
+                <td>{{ row[1]['total_revenue'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Graphiques -->
+    <h2>Visualisations</h2>
+    <img src="{{ url_for('static', filename='number_of_orders_by_supplier.png') }}" alt="Nombre de commandes">
+    <img src="{{ url_for('static', filename='total_quantity_by_supplier.png') }}" alt="Quantité totale commandée">
+    <img src="{{ url_for('static', filename='total_price_by_supplier.png') }}" alt="Prix total">
+    <img src="{{ url_for('static', filename='total_revenue_by_supplier.png') }}" alt="Chiffre d'affaires">
+</body>
+</html>
